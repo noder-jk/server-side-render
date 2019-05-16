@@ -4,8 +4,17 @@
   "description": "Server side renderer plugin for Node Reactor CMS. It's actually paid. However some initial version is available to use without buying.",
   "main": "index.njs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "transpile": "babel react-dev --out-dir react --copy-files",
+    "transpile-watch": "babel react-dev --out-dir react --copy-files --watch"
   },
   "author": "JK",
-  "license": "SEE LICENSE IN 'LICENSE' file"
+  "license": "SEE LICENSE IN 'LICENSE' file",
+  "dependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
+    "puppeteer": "^1.16.0"
+  }
 }
