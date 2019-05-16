@@ -1,0 +1,11 @@
+{
+  "name": "server-side-render",
+  "version": "1.0.0",
+  "description": "Server side renderer plugin for Node Reactor CMS. It's actually paid. However some initial version is available to use without buying.",
+  "main": "index.njs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "JK",
+  "license": "SEE LICENSE IN 'LICENSE' file"
+}
