@@ -1,6 +1,6 @@
 {
   "name": "server-side-render",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Server side renderer plugin for Node Reactor CMS. It's actually paid. However some initial version is available to use without buying.",
   "main": "index.njs",
   "scripts": {
