@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import Spinner from 'react-svg-spinner';
 import Swal from 'sweetalert2';
-import axios from 'axios';
 
-import {ajax_url} from 'nodereactor/react';
+import {ajaxRequest} from 'nodereactor/react';
 
 class SettingPage extends Component
 {
@@ -34,52 +33,39 @@ class SettingPage extends Component
     {
         let vals=
         {
-            'action':'nr_save_ss_render_settings',
             'ss_regex':this.state.ss_regex
         };
         
         this.setState({'loading':true});
 
-        axios({
-            method:'post',
-            url:ajax_url ,
-            data:vals
-        }).then(r=>
+        ajaxRequest('nr_save_ss_render_settings', vals, (r,d,e)=>
         {
             this.setState({'loading':false});
-            Swal.fire('Saved');
-
-        }).catch(r=>
-        {
-            this.setState({'loading':false});
-            Swal.fire('Error', 'Request Failed', 'error');
-        })
+            Swal.fire(!e ? 'Saved' : 'Error');
+        });
     }
 
     componentDidMount()
     {
         this.setState({'loading':true});
 
-        axios({
-            method:'post',
-            url:ajax_url,
-            data:{'action':'nr_get_ss_options'}
-        }).then(r=>
+        ajaxRequest('nr_get_ss_options', (r, d, e)=>
         {
             this.setState({'loading':false});
-        
-        
-            if(r.data && r.data.ss_regex)
+
+            if(e)
             {
-                this.setState({'ss_regex':r.data.ss_regex});
-                this.rg_txt.value=r.data.ss_regex;
+                Swal.fire('Error', 'Request Failed', 'error');
+                return;
             }
 
-        }).catch(r=>
-        {
-            this.setState({'loading':false});
-            Swal.fire('Error', 'Request Failed', 'error');
-        })
+            if(r.ss_regex)
+            {
+                this.setState({'ss_regex':r.ss_regex});
+
+                this.rg_txt.value=r.ss_regex;
+            }
+        });
     }
 
     render()

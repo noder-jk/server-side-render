@@ -11,8 +11,6 @@ var _reactSvgSpinner = _interopRequireDefault(require("react-svg-spinner"));
 
 var _sweetalert = _interopRequireDefault(require("sweetalert2"));
 
-var _axios = _interopRequireDefault(require("axios"));
-
 var _react2 = require("nodereactor/react");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -72,28 +70,17 @@ function (_Component) {
       var _this2 = this;
 
       var vals = {
-        'action': 'nr_save_ss_render_settings',
         'ss_regex': this.state.ss_regex
       };
       this.setState({
         'loading': true
       });
-      (0, _axios["default"])({
-        method: 'post',
-        url: _react2.ajax_url,
-        data: vals
-      }).then(function (r) {
+      (0, _react2.ajaxRequest)('nr_save_ss_render_settings', vals, function (r, d, e) {
         _this2.setState({
           'loading': false
         });
 
-        _sweetalert["default"].fire('Saved');
-      })["catch"](function (r) {
-        _this2.setState({
-          'loading': false
-        });
-
-        _sweetalert["default"].fire('Error', 'Request Failed', 'error');
+        _sweetalert["default"].fire(!e ? 'Saved' : 'Error');
       });
     }
   }, {
@@ -104,30 +91,24 @@ function (_Component) {
       this.setState({
         'loading': true
       });
-      (0, _axios["default"])({
-        method: 'post',
-        url: _react2.ajax_url,
-        data: {
-          'action': 'nr_get_ss_options'
-        }
-      }).then(function (r) {
+      (0, _react2.ajaxRequest)('nr_get_ss_options', function (r, d, e) {
         _this3.setState({
           'loading': false
         });
 
-        if (r.data && r.data.ss_regex) {
+        if (e) {
+          _sweetalert["default"].fire('Error', 'Request Failed', 'error');
+
+          return;
+        }
+
+        if (r.ss_regex) {
           _this3.setState({
-            'ss_regex': r.data.ss_regex
+            'ss_regex': r.ss_regex
           });
 
-          _this3.rg_txt.value = r.data.ss_regex;
+          _this3.rg_txt.value = r.ss_regex;
         }
-      })["catch"](function (r) {
-        _this3.setState({
-          'loading': false
-        });
-
-        _sweetalert["default"].fire('Error', 'Request Failed', 'error');
       });
     }
   }, {

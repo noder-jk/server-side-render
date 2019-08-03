@@ -1,7 +1,7 @@
 {
   "name": "server-side-render",
   "version": "1.0.1",
-  "description": "Server side renderer plugin for Node Reactor CMS. It's actually paid. However some initial version is available to use without buying.",
+  "description": "Server side renderer plugin for Node Reactor CMS.",
   "main": "index.njs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,12 +9,29 @@
     "transpile-watch": "babel react-dev --out-dir react --copy-files --watch"
   },
   "author": "JK",
-  "license": "SEE LICENSE IN 'LICENSE' file",
+  "license": "GPL-2.0-or-later",
   "dependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "puppeteer": "^1.16.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noder-jk/server-side-render.git"
+  },
+  "keywords": [
+    "server",
+    "side",
+    "render",
+    "ssr",
+    "react",
+    "ssr"
+  ],
+  "bugs": {
+    "url": "https://github.com/noder-jk/server-side-render/issues"
+  },
+  "homepage": "https://github.com/noder-jk/server-side-render#readme"
 }
