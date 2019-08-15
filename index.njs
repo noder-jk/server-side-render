@@ -106,7 +106,7 @@ const provide_existing=function($, next)
 
 module.exports.run=function($, next)
 {
-    $.add_action('nodes_init', nr_handle_ss_render);
+    $.add_action('init', nr_handle_ss_render);
 
     $.add_action('admin_menu', nr_create_admin_page);
 
