@@ -46,7 +46,7 @@ const nr_create_admin_page=function($, next)
 
 const nr_handle_ss_render=function($, next)
 {
-    if($._SERVER['REQUEST_METHOD']=='GET' && !$._GET.virtual_request && !$.requested_file_path && check_referrer($)==true)
+    if($._SERVER['REQUEST_METHOD']=='GET' && !$._GET.ss_render_virtual_request && !$.requested_file_path && check_referrer($)==true)
     {
         var cc=async ($) => 
         {
@@ -56,50 +56,33 @@ const nr_handle_ss_render=function($, next)
 
             /* Virtual Browser Configs */
             var  page = await browser.newPage();
-            var  local_url = nr_home_url.slice(0, -1)+$.nr_pathname+'?virtual_request=yes';
+            var  local_url = nr_home_url.slice(0, -1)+$.nr_pathname+'?ss_render_virtual_request=yes';
 
-            
             /* Access the url */
             await page.goto(local_url, 
             {
                 waitUntil: "networkidle0",
             });
 
+            
             /* Collect the codes */
             var  html = await page.evaluate(() => 
             {
                 return document.documentElement.innerHTML;
+            }).catch(e=>
+            {
+                console.log('"Puppeteer" error under "push-notifier" package.');
+                console.log(e);
             });
 
             /* Send to requester */
-            exit($, html);
+            $.exit(html);
 
-            // res.send(html);
+            browser.close();
         }
         cc($); 
         return;
     }
-
-    next($);
-}
-
-const save_regex=function($, next)
-{
-    if($._POST.ss_regex)
-    {
-        var rg=$._POST.ss_regex;
-        rg=rg.trim();
-
-        $.add_option({'ss_regex':rg}, 'server-side-render');
-    }
-    next($);
-}
-
-const provide_existing=function($, next)
-{
-    var opt=$.get_option('ss_regex', 'server-side-render');
-
-    $.echo({'ss_regex':(opt || '')});
 
     next($);
 }
@@ -109,9 +92,6 @@ module.exports.run=function($, next)
     $.add_action('init', nr_handle_ss_render);
 
     $.add_action('admin_menu', nr_create_admin_page);
-
-    $.add_action('nr_ajax_nr_get_ss_options', provide_existing);
-    $.add_action('nr_ajax_nr_save_ss_render_settings', save_regex);
 
     next($);
 }

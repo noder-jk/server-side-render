@@ -15,7 +15,8 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
-    "puppeteer": "^1.19.0"
+    "puppeteer": "^1.19.0",
+    "string-format": "^2.0.0"
   },
   "devDependencies": {},
   "repository": {
@@ -33,5 +34,8 @@
   "bugs": {
     "url": "https://github.com/noder-jk/server-side-render/issues"
   },
-  "homepage": "https://github.com/noder-jk/server-side-render#readme"
+  "homepage": "https://github.com/noder-jk/server-side-render#readme",
+  "nr_configs": {
+    "type": "plugin"
+  }
 }
